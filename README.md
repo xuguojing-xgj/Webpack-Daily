@@ -16,3 +16,17 @@
 - Webpack 有完备的代码分片解决方案, 它可以分割打包后的资源,在首屏只加载必要的部分, 将不太重要的功能放到后面动态加载
 对于较大体积的项目来说尤为重要, 可以有效的减小资源体积, 提升首页渲染速度
 - Webpack 可以处理各种类型的资源, 除了js之外 Webpack 还可以处理 样式, 图片, 模板等.. 
+
+###### CommonJS模块
+
+- CommonJS 中规定每个文件是一个模块. 每个模块都有自己的作用域
+
+```
+// calculator.js
+var name = 'calculator.js'
+
+// index.js
+var name = 'index.js'
+require('./calculator.js')
+console.log(name) // index.js
+```
