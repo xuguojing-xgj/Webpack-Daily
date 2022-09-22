@@ -33,9 +33,7 @@ export const add = function (a,b) {return a + b}
 // 写法2
 const name = 'calculator'
 const add = function (a,b) {return a + b}
-export {
-    name, add
-}
+export { name, add }
 
 // 再使用 export {...} 进行命名导出时 可以使用 as 关键字对变量重名名
 export {name as MyName , add as getSum} // 在导入时即为 MyName 与 getSum
@@ -54,4 +52,69 @@ export default 'this is calculator.js' // 导出字符串
 export default class {...} // 导出类
 export default function () {...} // 导出匿名函数
 ```
- 
+###### ES6 Module导入
+
+- ES6 Module 中使用import 语法导入模块
+
+- 第一种命名导出和命名导入时 (也可以是 按需导出 和 按需导入)
+```
+// calculator.js
+const name = 'calculator'
+const add = function (a,b) {return a + b}
+export { name, add }
+
+// index.js
+import {name , add } from './calculator.js'
+add(2,3) // 5
+
+/**
+* 与命名导出类似的, 我们可以通过 as 关键字对导入的变量重命名
+*/
+
+import {name , add as calculateSum} from './calculator.js'
+calculateSum(4,5) // 9
+
+/**
+* 在导入多个变量时 我们可以采用整体导入的方式
+*/
+
+import * as calculator from './calculator.js'
+console.log(calculator.name)
+console.log(calculator.add(2,3))
+
+/**
+* 使用import * as <myModule> 可以把所有导入的变量作为属性值添加到 <myModule> 
+* 对象中, 从而减少对当前作用域的影响
+*/
+```
+
+- 最后默认导出和导入 
+```
+// calculator.js
+export default {
+    name: 'calculator',
+    add: function (a,b) {
+            return a + b
+    }
+}
+
+// index.js
+import myCalculator from './calculator.js'
+myCalculator.add(2,3)
+
+/**
+* 对于默认导出来说 import 后面直接跟变量名, 它指代了 calculator.js 中默认导出的值
+* 从原理上可以这样理解 : 
+*/
+
+import { default as myCalculator } from './calculator.js'
+```
+
+- 混合导入例子 : 
+
+```
+// index.js
+import React, {Component} from 'react'
+
+```
+- 这里的React 对应的是该模块的默认导出, Component则是其中命名导出的一个变量
