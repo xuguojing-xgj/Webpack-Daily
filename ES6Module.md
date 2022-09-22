@@ -110,11 +110,11 @@ myCalculator.add(2,3)
 import { default as myCalculator } from './calculator.js'
 ```
 
-- 混合导入例子 : 
+- 混合导入例子
+- 这里的React 对应的是该模块的默认导出, Component则是其中命名导出的一个变量
 
 ```
 // index.js
 import React, {Component} from 'react'
 
 ```
-- 这里的React 对应的是该模块的默认导出, Component则是其中命名导出的一个变量
