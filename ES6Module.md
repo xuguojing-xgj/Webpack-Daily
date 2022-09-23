@@ -54,7 +54,7 @@ export default function () {...} // 导出匿名函数
 ```
 ###### ES6 Module导入
 
-- ES6 Module 中使用import 语法导入模块
+- ES6 Module 中使用 `import` 语法导入模块
 
 - 第一种命名导出和命名导入时 (也可以是 按需导出 和 按需导入)
 ```
