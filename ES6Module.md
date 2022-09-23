@@ -118,3 +118,20 @@ import { default as myCalculator } from './calculator.js'
 import React, {Component} from 'react'
 
 ```
+
+###### 复合写法
+
+- 在工程中,需要把某个模块导入之后立即导出
+- 比如专门用来集合所有页面或者组件的入口文件, 此时可以采用复合写法
+
+```
+export { name , add } from './calculator.js'
+```
+
+- 复合写法目前只支持被导入模块,通过命名导出的方式暴露出来的变量
+- 默认导出则没有对应的复合形式, 只能将导入和导出拆开来写
+
+```
+import calculator from './calculator.js'
+export default calculator
+```
