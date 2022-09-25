@@ -88,3 +88,34 @@ add(2,3)
 console.log(count) // 1 (实时反映 calculator.js中 count 值变化)
 
 // count += 1; // 不可更改,会抛出 SyntaxError: "count" is read-only
+```
+
+- 在ES6 Module 中导入的变量其实是对原有值的动态映射
+- index.js 中的count 是对calculator.js 中 count 值的实时反映
+- 当我们通过add 函数调用更改了 calculator.js 中的 count 值时
+- index.js中的count也会随之变化,并且在ES6 Module 规定不能对导入的变量进行修改, 当我们尝试修改时它会抛出一个错误
+- 该变量只读错误 : SyntaxError: "count" is read-only
+
+###### 循环依赖
+
+- 循环依赖是指: 模块A依赖于模块B, 同时模块B又依赖于模块A
+- 比如: 
+
+```
+// a.js
+import { foo } from './b.js'
+foo()
+// b.js
+import { bar } from './a.js'
+bar()
+```
+- 一般来说在工程中应该尽量避免循环依赖的产生, 因为从软件设计的角度来说,单向的依赖关系更加清晰,循环依赖则会带来一定的复杂度.
+- 但是在实际开发中, 循环依赖有时会在我们不经意之间产生. 因为当工程的复杂度上升到足够大时, 就容易出现隐藏的循环依赖关系
+- 简单说 : A和B模块之间是否直接存在循环依赖的关系是容易发现的
+- 但实际情况往往是A依赖于B,B依赖于C,C依赖于D,最后绕了一大圈,D又依赖于A
+- 当中间模块太多时我们就很难发现A和B之间存在隐式的循环依赖了
+
+> CommonJS 模块中的循环依赖
+
+```
+ 
