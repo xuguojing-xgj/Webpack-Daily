@@ -37,3 +37,54 @@ import { name } from './calculator.js';
   - 编译器优化 
 
 
+###### 值赋值和动态映射
+
+- 在导入一个模块时, 对CommonJS来说获取的是一份导出值的副本； 
+- 而在ES6 Module中则是值的动态映射,并且这个映射是只读的
+> CommonJS 中的值赋值
+```
+// calculator.js
+var count = 0
+module.exports = {
+  count: count,
+  add: function(a,b) {
+    count += 1
+    return a+b
+  }
+}
+
+// index.js 
+var count = require('./calculator.js').count;
+var add = require('./calculator.js').add;
+console.log(count) // 0 (这里的count是calculator.js 中 count 值的副本)
+add(2,3)
+console.log(count) // 0 (calculator.js中的count 值改变 不会对这里的count 副本造成影响)
+
+// 而
+count += 1
+console.log(count) // 1 (副本的值可以改变)
+
+```
+- index.js 中的count 是 calculator.js 中count 的一个副本, 因此在调用add函数时, 虽然更改了原本的calculator.js中的count 值
+- 但是并不会对 index.js 中导入时创建的副本造成影响
+- 然额, 在CommonJS 中允许对 导入的值进行更改, 我们可以在 index.js 中更改 count 和 add 将其赋予新值, 
+- 同样, 由于是在index.js 创建副本, 更改之后不会影响calculator.js本身
+
+> ES6 Module 中的动态映射
+
+```
+// calculator.js 命名导出
+let count = 0
+const add = function (a,b) { 
+    count += 1
+    return a + b
+}
+export {count, add}
+
+// index.js
+import {count, add} from './calculator.js'
+console.log(count) // 0 (对calculator.js中的值映射)
+add(2,3)
+console.log(count) // 1 (实时反映 calculator.js中 count 值变化)
+
+// count += 1; // 不可更改,会抛出 SyntaxError: "count" is read-only
