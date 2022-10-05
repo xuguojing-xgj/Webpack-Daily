@@ -51,3 +51,5 @@ module.exports = {
 }
 ~~~
 
+- 在 module.rules 中 使用 happypack/loader 替换了原有的babel-loader 
+- 并在 plugins 中添加了 HappyPack 的插件, 将原有的babel-loader 连同它的配置一起插入了进去
